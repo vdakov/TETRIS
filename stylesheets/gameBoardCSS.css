@@ -1,0 +1,102 @@
+*{
+    margin:0;
+    box-sizing: border-box;
+}
+
+#revealed{
+    width: 75px;
+    height: 150px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    margin-top: -75px;
+    margin-left: -37.5px;
+    outline: 6px solid #52514f;
+    outline-offset: -6px;
+    
+}
+
+#hidden{
+    width: 0px;
+    height:0px;
+    position: absolute;
+}
+
+body{
+    background-color: rgb(84, 123, 209);
+    height: 100vh;
+    font-family: 'Press Start 2P', "consolas", cursive; 
+}
+
+
+#connection{
+    position:absolute;
+    left:0;
+    top:25%;
+    font-size:10px;
+}
+
+#leftside{
+    font-family: 'Press Start 2P', "consolas", cursive; 
+    margin-left: 80%;
+}
+
+#time{
+    font-size:50px;
+    position: absolute;
+}
+
+#playerPoint{
+    font-family: 'Press Start 2P', "consolas", cursive; 
+    position: absolute;
+    bottom:0;
+    left:0;
+    font-size:25px;
+    display: flex;
+    flex-wrap:wrap;
+    
+
+}
+
+#turnDisplay{
+    font-family: 'Press Start 2P', "consolas", cursive;
+    font-size:30px;
+
+}
+
+#pairsLeft{
+    position: absolute;
+    bottom:0;
+    right:0;
+    font-family: 'Press Start 2P', "consolas", cursive;
+    font-size:30px;
+
+}
+
+
+
+#cards{
+    width: 540px;
+    height: 540px;
+    position: absolute;
+    left: 50%;
+   
+    margin-left: -270px;
+ 
+    display:flex;
+    flex-wrap: wrap;
+
+}
+
+.card{
+    position:sticky;
+    width:25%;
+    height:30%;
+
+}
+
+
+
+
+
+

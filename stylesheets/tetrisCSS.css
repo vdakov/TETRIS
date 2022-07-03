@@ -1,0 +1,18 @@
+
+#board{
+ margin-top: 8%;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cell {
+    border: 0.0001px solid gray;
+    min-width: 20px;
+    min-height: 20px;
+    /*background-color:black;*/
+    display: inline-block;
+}
