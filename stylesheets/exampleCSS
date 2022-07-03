@@ -1,0 +1,208 @@
+body{
+    /*background-color: black;*/
+    background-image: url(download.jfif); /* Only this will duplicate image a lot*/
+    background-repeat:no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;/* Fills whole background*/
+    border:5px;
+}
+h1{
+    background: linear-gradient(white,green, red);
+    background-repeat:no-repeat;
+    background-attachment: fixed;
+    color:black;
+    border-top-style:dotted;
+    border-bottom-style:dotted;
+    border-left-style:double;
+    border-left-width: 20px;
+    border-left-color:silver;
+    border-right-style:double;
+    border-right-width: 20px;
+    border-right-color:silver;
+    font-family: "Press Start 2P" ,"consolas", sans-serif; /* you can import fonts from google and paste them in the head of the html*/
+}/* The comma is if the first font does not work, the browser will use the second one*/
+p{
+    background: linear-gradient(white,green, red);
+    background-repeat:no-repeat;
+    background-attachment: fixed;
+    color:black;
+    font-family: "consolas", sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    text-decoration: dotted underline;
+    font-size:20px;
+    border-style:solid; 
+    border-width: 5px;
+    border-color: gold;
+    border-radius:200;
+    text-shadow: 2px 2px 0px rgb(255, 255, 255), 0px 0px 5px yellow;
+}
+
+#shadow{
+    font-size:50px;
+    text-shadow: 0px 2px 0px black;
+    
+}
+h1:hover{
+    text-shadow: 50px 50px 50px yellow;
+}
+
+#box1{
+    box-shadow:5px 5px 5px black;
+    margin-top:50px;
+    border: 5px solid;
+    width: 500px;
+    height: 500px;
+    font-size:33px;
+    background: greenyellow;
+    padding: 20px;
+    margin-right:auto;
+    margin-left:auto;
+    margin-top:auto;
+    /*position: fixed; /* This element is fixed now and will not move no matter how you move the screen*/
+    margin-bottom:auto;
+}
+
+/** FONT AWESOME USE IT*/
+
+#box2{
+    margin-top:25%;
+    margin-left:25%;
+    border: 5px solid;
+    width: 500px;
+    height: 500px;
+    font-size:33px;
+
+    background: greenyellow;
+}
+
+#box6{
+    border:4px solid;
+    width:250px;
+    height:250px;
+    font-size:100px;
+    text-align:center;
+    background: skyblue;
+
+    transform: translateX(50px);
+    transform: translateY(-50px);
+    transform: translate(50px, 50px);
+    transform: rotateX(180deg);
+    transform: rotateY(180deg);
+    transform: rotateZ(180deg);
+    transform: scaleX(3);
+    transform: scaleY(0);
+    transform: scale(2,0);
+    transform:  skewX(35deg);
+    transform: skewY(10 deg);
+    transform: skew(20 deg, 20 deg);
+
+    
+
+}
+
+.box{
+    float: right;
+    width:100px;
+    height:100px;
+    border:1px;
+    font-size:40px;
+    text-align: center;
+    background:tomato;
+    position: fixed;
+    top:200px;
+   
+}
+#box3{
+    border:5px solid;
+    height:300px;
+    width:300px;
+    background-color: orange;
+    position: relative;/* relative to an object, can overwrite other objects*/
+    top:50px;
+    left:50px; /* This can make elements cover other elements*/
+
+
+}
+
+#box4{
+    border:5px solid;
+    height:100px;
+    width:100px;
+    background-color: gold;
+    position: absolute; /* It will be ignored by other objects and they will go under it;*/
+    /* Searches for a partent with relative position to anchor to*/
+
+}
+
+img{
+    float:left;
+    height:500px;
+    width:500px;
+    
+}/* with float everything wraps around the provided elements*/
+
+
+a:link{
+    color: lawngreen;
+}
+
+a:visited{
+    color:grey;
+}
+
+a:hover{
+    color:tomato;
+} /**These CSS properties apply when an action is done on that element;*/
+
+a:active{
+    color:yellow;
+}
+
+button:hover{
+    color:lightgray;
+}
+
+button:active{ 
+    background-color:white;
+}
+
+li:nth-child(3n){/* You can also add in formulas as arguments*/
+    background-color: yellow;
+}
+
+li:nth-child(even){/* Can be used with Javascript and pass indexes here*/
+    background-color: blue;
+}
+
+li:nth-child(odd){/* Can be used with Javascript and pass indexes here*/
+    background-color: gray;
+}
+
+/*
+#p1{
+    color:blanchedalmond;
+}
+
+#p2{
+    color:blueviolet;
+}
+
+#p3{
+    color:cornflowerblue;
+}
+
+#p4{
+    color:darkkhaki;
+} */
+
+/* .odd{
+    color:red;
+}
+
+.even{
+    color:gray;
+} */
+
+
