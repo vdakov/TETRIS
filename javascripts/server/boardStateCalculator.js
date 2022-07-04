@@ -1,12 +1,11 @@
 const express= require('express');
 const pieceGenerator= require('C:\\Users\\vdako\\WebstormProjects\\memorygame\\javascripts\\server\\pieces.js');
-//const board= initializeBoard(10,27);
-// let newPiece=24; //temp way to test gravity system
 
-class boardA {
+class Board {
+
     constructor(){
-        this.board=initializeBoard(10,27);
-        this.newPiece=24;
+        this.board=initializeBoard(10,27); //initializes the board maintained for the current player with 27 rows due to last row being for checking
+        this.pieceHasFallen=true;
     }
 
 
@@ -20,15 +19,6 @@ class boardA {
                 }
             }
         }
-
-        // for( let i=0; i<this.board.length-1; i++) {
-        //     for (let j = 0; j < this.board[i].length; j++) {
-        //         if(this.board[i+1][j]==1 && this.board[i][j]==2){
-        //             return i;
-        //         }
-        //     }
-        // }
-
         return -1;
 
     }
@@ -42,14 +32,11 @@ class boardA {
     }
 
     nextBoardState(){
-        if(this.newPiece==24){
+        if(this.pieceHasFallen){
             this.appendNewPieceToBoard(pieceGenerator());
-            this.newPiece=0;
+            this.pieceHasFallen=false;
         }
         this.oneGravityTick();
-        this.newPiece++;
-
-
         return this.board;
     }
 
@@ -58,6 +45,7 @@ class boardA {
 
         if(k!=-1){
             this.convert2sTo1s(k);
+            this.pieceHasFallen=true;
 
         }else{
             for( let i=this.board.length-1; i> 0; i--) {
@@ -104,10 +92,10 @@ class boardA {
 }
 
 function sendNewBoard(){
-    return new boardA();
+    return new Board(); //function that sends a new board object for each player that is used to maintain a session
 }
 
-function initializeBoard(columns, rows){ // function that initializes the board
+function initializeBoard(columns, rows){ // function that initializes the board for each player in the constructor
     let arr= new Array(rows);
     for( let i=0; i< rows; i++) {
         arr[i]=new Array(columns);
@@ -121,65 +109,6 @@ function initializeBoard(columns, rows){ // function that initializes the board
     return arr;
 };
 
-// function checkForContact(){
-//
-// }
-//
-// function appendNewPieceToBoard(piece){
-//     for(let i=0; i<piece.length; i++){
-//         for(let j=0;j<piece[i].length;j++){
-//             board[i][j]=piece[i][j];
-//         }
-//     }
-// };
-//
-// function nextBoardState(){
-//     if(newPiece==24){
-//         appendNewPieceToBoard(pieceGenerator());
-//         newPiece=0;
-//     }
-//     oneGravityTick();
-//     newPiece++;
-//
-//
-//     return board;
-// };
-//
-// function oneGravityTick(){
-//
-//     for( let i=board.length-1; i> 0; i--) {
-//         for (let j = 0; j < board[i].length; j++) {
-//             if(board[i][j]==1 && board[i-1][j]==2){
-//                 convert2sTo1s(i-1);
-//             }else if(board[i][j]==0 && board[i-1][j]==2){
-//                 board[i][j]=2;
-//                 board[i-1][j]=0;
-//             }
-//         }
-//     }
-//
-// };
-//
-// function convert2sTo1s(rowIndex){
-//     if(rowIndex<3){
-//         for(let i=rowIndex;i>=0;i--){
-//             for(let j=0;j<board[i].length;j++){
-//                 if(board[i][j]==2){
-//                     board[i][j]=1;
-//                 }
-//             }
-//         }
-//     }else{
-//         for(let i=rowIndex;i>rowIndex-4;i--){
-//             for(let j=0;j<board[i].length;j++){
-//                 if(board[i][j]==2){
-//                     board[i][j]=1;
-//                 }
-//             }
-//         }
-//     }
-//
-// }
 
 module.exports=sendNewBoard;
 
