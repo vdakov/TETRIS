@@ -10,7 +10,26 @@ class boardA {
     }
 
 
-    checkForContact(){
+    checkForCollision(){
+
+        for( let i=this.board.length-1; i> 0; i--) {
+            for (let j = 0; j < this.board[i].length; j++) {
+
+                if(this.board[i][j]==1 && this.board[i-1][j]==2){
+                    return i;
+                }
+            }
+        }
+
+        // for( let i=0; i<this.board.length-1; i++) {
+        //     for (let j = 0; j < this.board[i].length; j++) {
+        //         if(this.board[i+1][j]==1 && this.board[i][j]==2){
+        //             return i;
+        //         }
+        //     }
+        // }
+
+        return -1;
 
     }
 
@@ -35,21 +54,29 @@ class boardA {
     }
 
     oneGravityTick(){
+        let k= this.checkForCollision();
 
-        for( let i=this.board.length-1; i> 0; i--) {
-            for (let j = 0; j < this.board[i].length; j++) {
-                if(this.board[i][j]==1 && this.board[i-1][j]==2){
-                    this.convert2sTo1s(i-1);
-                }else if(this.board[i][j]==0 && this.board[i-1][j]==2){
-                    this.board[i][j]=2;
-                    this.board[i-1][j]=0;
+        if(k!=-1){
+            this.convert2sTo1s(k);
+
+        }else{
+            for( let i=this.board.length-1; i> 0; i--) {
+                for (let j = 0; j < this.board[i].length; j++) {
+                    if(this.board[i][j]==0 && this.board[i-1][j]==2){
+                        this.board[i][j]=2;
+                        this.board[i-1][j]=0;
+                    }
                 }
             }
         }
 
+
+
+
     }
 
     convert2sTo1s(rowIndex) {
+
         if (rowIndex < 3) {
             for (let i = rowIndex; i >= 0; i--) {
                 for (let j = 0; j < this.board[i].length; j++) {
@@ -71,6 +98,8 @@ class boardA {
                 }
             }
         }
+
+
     }
 }
 
