@@ -2,8 +2,6 @@ const express = require('express');
 const pieceGenerator = require('C:\\Users\\vdako\\WebstormProjects\\memorygame\\javascripts\\server\\pieces.js');
 
 class Board {
-
-
     /*
         initializes the board maintained for the current player with 27 rows due to last row being for checking
 
@@ -87,9 +85,33 @@ class Board {
         }
     }
 
-    // checkForCompleteRow(){
-    //     for(let i=0;)
-    // }
+    checkForCompleteRow(){
+        let arr= [];
+        let completeRow=true;
+
+
+        for(let i=0;i<this.board.length-1;i++){
+            for(let j=0;j<this.board[i].length;j++){
+                if(this.board[i][j]!=1){
+                    completeRow=false;
+                }
+            }
+            if(completeRow){
+                arr.push(i);
+            }
+            completeRow=true;
+        }
+
+        let b= this.board;
+
+        arr.forEach(function(i){
+            for(let j=i;j>1;j--){
+                for(let k=0;k<b.length;k++){
+                    b[j][k]=b[j-1][k];
+                }
+            }
+        });
+    };
 
     /*
         The function that chooses between the next board states. If a piece has collided, it asks for a new one
@@ -99,6 +121,7 @@ class Board {
      */
     nextBoardState() {
         if (this.pieceHasFallen) {
+            this.checkForCompleteRow();
             this.appendNewPieceToBoard(pieceGenerator());
             this.pieceHasFallen = false;
         }

@@ -125,5 +125,5 @@ function colorCells() {
 
 
 setInterval(colorCells, 100);
-setInterval(requestNewBoard, 1000);
+setInterval(requestNewBoard, 100);
 
