@@ -2,8 +2,6 @@ const express = require('express');
 const pieceGenerator = require('C:\\Users\\vdako\\WebstormProjects\\memorygame\\javascripts\\server\\pieces.js');
 
 class Board {
-
-
     /*
         initializes the board maintained for the current player with 27 rows due to last row being for checking
 
@@ -30,7 +28,48 @@ class Board {
             }
         }
         return -1;
+    }
 
+    /*
+        Function that checks whether the piece currently on the board can move to the right
+        If current pieces is touching a 1 value on the right or a wall- it can not move right
+
+        return: boolean value that is used in the moveRight() function to know whether to allow the movement
+     */
+    checkCanMoveRight() {
+
+        for (let i = this.board.length - 1; i > 0; i--) {
+            for (let j = 0; j < this.board[i].length; j++) {
+                if (j == this.board[i].length - 1 && this.board[i][j] == 2 || this.board[i][j] == 2 && this.board[i][j + 1] == 1) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /*
+        Function that checks whether the piece currently on the board can move to the left
+        If current pieces is touching a 1 value on the left or a wall- it can not move to the left
+
+        return: boolean value that is used in the moveLeft() function to know whether to allow the movement
+     */
+    checkCanMoveLeft() {
+
+        for (let i = this.board.length - 1; i > 0; i--) {
+            for (let j = 1; j < this.board[i].length; j++) {
+                if (this.board[i][j] == 2 && this.board[i][j - 1] == 1) {
+                    return false;
+                }
+            }
+
+            if (this.board[i][0] == 2) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /*
@@ -46,6 +85,34 @@ class Board {
         }
     }
 
+    checkForCompleteRow(){
+        let arr= [];
+        let completeRow=true;
+
+
+        for(let i=0;i<this.board.length-1;i++){
+            for(let j=0;j<this.board[i].length;j++){
+                if(this.board[i][j]!=1){
+                    completeRow=false;
+                }
+            }
+            if(completeRow){
+                arr.push(i);
+            }
+            completeRow=true;
+        }
+
+        let b= this.board;
+
+        arr.forEach(function(i){
+            for(let j=i;j>1;j--){
+                for(let k=0;k<b.length;k++){
+                    b[j][k]=b[j-1][k];
+                }
+            }
+        });
+    };
+
     /*
         The function that chooses between the next board states. If a piece has collided, it asks for a new one
         If not, one more gravity tick occurs and process is repeated whenever necessary
@@ -54,6 +121,7 @@ class Board {
      */
     nextBoardState() {
         if (this.pieceHasFallen) {
+            this.checkForCompleteRow();
             this.appendNewPieceToBoard(pieceGenerator());
             this.pieceHasFallen = false;
         }
@@ -117,6 +185,33 @@ class Board {
         }
 
 
+    }
+
+    moveLeft() {
+        if (this.checkCanMoveLeft()) {
+            for (let i = this.board.length - 1; i > 0; i--) {
+                for (let j = 0; j < this.board[i].length; j++) {
+                    if (this.board[i][j] == 2) {
+                        this.board[i][j] = 0;
+                        this.board[i][j - 1] = 2;
+                    }
+                }
+            }
+        }
+
+    }
+
+    moveRight() {
+        if (this.checkCanMoveRight()) {
+            for (let i = this.board.length - 1; i > 0; i--) {
+                for (let j = this.board[i].length - 1; j >= 0; j--) {
+                    if (this.board[i][j] == 2) {
+                        this.board[i][j] = 0;
+                        this.board[i][j + 1] = 2;
+                    }
+                }
+            }
+        }
     }
 }
 
