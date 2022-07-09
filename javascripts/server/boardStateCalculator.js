@@ -30,7 +30,48 @@ class Board {
             }
         }
         return -1;
+    }
 
+    /*
+        Function that checks whether the piece currently on the board can move to the right
+        If current pieces is touching a 1 value on the right or a wall- it can not move right
+
+        return: boolean value that is used in the moveRight() function to know whether to allow the movement
+     */
+    checkCanMoveRight() {
+
+        for (let i = this.board.length - 1; i > 0; i--) {
+            for (let j = 0; j < this.board[i].length; j++) {
+                if (j == this.board[i].length - 1 && this.board[i][j] == 2 || this.board[i][j] == 2 && this.board[i][j + 1] == 1) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /*
+        Function that checks whether the piece currently on the board can move to the left
+        If current pieces is touching a 1 value on the left or a wall- it can not move to the left
+
+        return: boolean value that is used in the moveLeft() function to know whether to allow the movement
+     */
+    checkCanMoveLeft() {
+
+        for (let i = this.board.length - 1; i > 0; i--) {
+            for (let j = 1; j < this.board[i].length; j++) {
+                if (this.board[i][j] == 2 && this.board[i][j - 1] == 1) {
+                    return false;
+                }
+            }
+
+            if (this.board[i][0] == 2) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /*
@@ -45,6 +86,10 @@ class Board {
             }
         }
     }
+
+    // checkForCompleteRow(){
+    //     for(let i=0;)
+    // }
 
     /*
         The function that chooses between the next board states. If a piece has collided, it asks for a new one
@@ -117,6 +162,33 @@ class Board {
         }
 
 
+    }
+
+    moveLeft() {
+        if (this.checkCanMoveLeft()) {
+            for (let i = this.board.length - 1; i > 0; i--) {
+                for (let j = 0; j < this.board[i].length; j++) {
+                    if (this.board[i][j] == 2) {
+                        this.board[i][j] = 0;
+                        this.board[i][j - 1] = 2;
+                    }
+                }
+            }
+        }
+
+    }
+
+    moveRight() {
+        if (this.checkCanMoveRight()) {
+            for (let i = this.board.length - 1; i > 0; i--) {
+                for (let j = this.board[i].length - 1; j >= 0; j--) {
+                    if (this.board[i][j] == 2) {
+                        this.board[i][j] = 0;
+                        this.board[i][j + 1] = 2;
+                    }
+                }
+            }
+        }
     }
 }
 

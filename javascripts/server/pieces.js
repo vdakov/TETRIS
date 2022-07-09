@@ -62,7 +62,5 @@ module.exports=function randomShiftedPiece(){
         }
     }
 
-    console.log(randomPiece)
-
     return randomPiece;
 };

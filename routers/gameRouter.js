@@ -54,7 +54,28 @@ router.get("/:playerId/newBoard" , (req,res) => {
     }
 
     gameMap.get(currentPlayerId).nextBoardState();
+    res.send(gameMap.get(currentPlayerId));
+} );
 
+router.get("/:playerId/right" , (req,res) => {
+
+    let currentPlayerId= parseInt(req.params.playerId);
+    if(gameMap.get(currentPlayerId)==null){
+        res.redirect("../splash");
+    }
+
+    gameMap.get(currentPlayerId).moveRight();
+    res.send(gameMap.get(currentPlayerId));
+} );
+
+router.get("/:playerId/left" , (req,res) => {
+
+    let currentPlayerId= parseInt(req.params.playerId);
+    if(gameMap.get(currentPlayerId)==null){
+        res.redirect("../splash");
+    }
+
+    gameMap.get(currentPlayerId).moveLeft();
     res.send(gameMap.get(currentPlayerId));
 } );
 

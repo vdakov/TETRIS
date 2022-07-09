@@ -1,24 +1,23 @@
-
-const board= document.querySelector("#board"); //gets the board div
-initializeBoard(27,10); //initializes the board in the standard tetris board size
-const rows= document.querySelectorAll(".row"); //gets an array of all row divs
+const board = document.querySelector("#board"); //gets the board div
+initializeBoard(27, 10); //initializes the board in the standard tetris board size
+const rows = document.querySelectorAll(".row"); //gets an array of all row divs
 let playerId;
-const playerName=document.querySelector("#user");
+const playerName = document.querySelector("#user");
 
-let innerBoard= new Array(rows.length); //creates the board of 1s and 0s on which the actual computations are done
-for(let i=0; i<innerBoard.length;i++){
-    innerBoard[i]= new Array(rows[i].childElementCount); // creates each computational row in the innerBoard arr
-    for(let j=0; j<innerBoard[i].length; j++){
-        innerBoard[i][j]=0; // 0 values have no piece on them, 1s have a piece on them
+let innerBoard = new Array(rows.length); //creates the board of 1s and 0s on which the actual computations are done
+for (let i = 0; i < innerBoard.length; i++) {
+    innerBoard[i] = new Array(rows[i].childElementCount); // creates each computational row in the innerBoard arr
+    for (let j = 0; j < innerBoard[i].length; j++) {
+        innerBoard[i][j] = 0; // 0 values have no piece on them, 1s have a piece on them
     }
 }
 
 requestId();
 
 
-function initializeBoard(rows, columns){ // function that initializes the board
+function initializeBoard(rows, columns) { // function that initializes the board
 
-    for( let i=0; i< rows; i++) {
+    for (let i = 0; i < rows; i++) {
         let row = document.createElement("div"); // creates a new element in the HTML
         board.appendChild(row).className = "row"; // appends a new child to the row div
         for (let j = 0; j < columns; j++) {
@@ -28,56 +27,96 @@ function initializeBoard(rows, columns){ // function that initializes the board
     }
 };
 
-async function requestId(){
-    const requestURL= "http://localhost:8080/game/getPlayerId";
-    const request= new Request(requestURL);
-    const response= await fetch(request);
+async function requestId() {
+    const requestURL = "http://localhost:8080/game/getPlayerId";
+    const request = new Request(requestURL);
+    const response = await fetch(request);
 
 
-    let id= await response.json();
-    playerId=id.id;
+    let id = await response.json();
+    playerId = id.id;
 
     requestName(playerId);
 
 }
 
-async function requestName(id){
-    const requestURL= "http://localhost:8080/game/"+id+"/getPlayerName";
-    const request= new Request(requestURL);
-    const response= await fetch(request);
+async function requestName(id) {
+    const requestURL = "http://localhost:8080/game/" + id + "/getPlayerName";
+    const request = new Request(requestURL);
+    const response = await fetch(request);
 
-    let name= await response.json();
+    let name = await response.json();
     console.log(name.player);
-    playerName.innerHTML="WELCOME " + name.player;
+    playerName.innerHTML = "WELCOME " + name.player;
 
 }
 
 
+async function requestNewBoard() {
+    const requestURL = "http://localhost:8080/game/" + playerId + "/newBoard";
+    const request = new Request(requestURL);
+    const response = await fetch(request);
 
-async function requestNewBoard(){
-    const requestURL= "http://localhost:8080/game/"+playerId+"/newBoard";
-    const request= new Request(requestURL);
-    const response= await fetch(request);
-
-    let newBoard= await response.json();
+    let newBoard = await response.json();
     console.log(newBoard);
 
-    for(let i=0; i<innerBoard.length; i++){
-        for(let j=0;j<innerBoard[i].length;j++){
-            innerBoard[i][j]=newBoard.board[i][j];
+    for (let i = 0; i < innerBoard.length; i++) {
+        for (let j = 0; j < innerBoard[i].length; j++) {
+            innerBoard[i][j] = newBoard.board[i][j];
         }
     }
 
-}
+};
 
-function colorCells(){
-    for(let i=0; i<innerBoard.length ; i++){
-        for(let j=0; j<innerBoard[i].length; j++){
-            if(innerBoard[i][j]==1){
+async function controls(e) {
+    let requestURL = "http://localhost:8080/game/" + playerId;
+
+
+    if (e.keyCode === 37) {
+        requestURL = requestURL + "/left";
+
+
+    } //left
+
+    if (e.keyCode === 39) {
+        requestURL = requestURL + "/right";
+
+
+    } //right
+
+    if (e.keyCode === 38) {
+
+    }
+    //up(rotate)
+
+    if (e.keyCode === 32) {
+
+    }//space
+
+    let request = new Request(requestURL);
+    let response = await fetch(request);
+    let newBoard = await response.json();
+    console.log(newBoard);
+
+    for (let i = 0; i < innerBoard.length; i++) {
+        for (let j = 0; j < innerBoard[i].length; j++) {
+            innerBoard[i][j] = newBoard.board[i][j];
+        }
+    }
+
+
+};
+
+document.addEventListener('keyup', controls);
+
+function colorCells() {
+    for (let i = 0; i < innerBoard.length; i++) {
+        for (let j = 0; j < innerBoard[i].length; j++) {
+            if (innerBoard[i][j] == 1) {
                 rows[i].childNodes[j].style.backgroundColor = 'white';
-            }else if(innerBoard[i][j]==2){
+            } else if (innerBoard[i][j] == 2) {
                 rows[i].childNodes[j].style.backgroundColor = 'yellow';
-            }else{
+            } else {
                 rows[i].childNodes[j].style.backgroundColor = 'black';
             }
         }
@@ -86,5 +125,5 @@ function colorCells(){
 
 
 setInterval(colorCells, 100);
-setInterval(requestNewBoard, 100);
+setInterval(requestNewBoard, 1000);
 
