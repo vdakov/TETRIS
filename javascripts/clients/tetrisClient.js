@@ -3,6 +3,12 @@ initializeBoard(27, 10); //initializes the board in the standard tetris board si
 const rows = document.querySelectorAll(".row"); //gets an array of all row divs
 let playerId;
 const playerName = document.querySelector("#user");
+const timer=document.querySelector("#timer");
+timer.innerHTML="00:00";
+let minutes=0;
+let seconds=0;
+let globalTime=0;
+
 
 let innerBoard = new Array(rows.length); //creates the board of 1s and 0s on which the actual computations are done
 for (let i = 0; i < innerBoard.length; i++) {
@@ -123,7 +129,29 @@ function colorCells() {
     }
 }
 
+function appendTime(){
+    seconds++;
+    globalTime++;
+    if(seconds==60){
+        minutes++;
+        seconds=0;
+    }
+    let minuteString=""+ minutes;
+    let secondString=""+ seconds;
+    if(minutes<10){
+        minuteString="0"+ minuteString;
+    }
+
+    if(seconds<10){
+        secondString="0"+ minuteString;
+    }
+
+    timer.innerHTML=minuteString+":"+secondString;
+
+}
+
 
 setInterval(colorCells, 100);
-setInterval(requestNewBoard, 100);
+setInterval(requestNewBoard, 500);
+setInterval(appendTime,1000);
 
