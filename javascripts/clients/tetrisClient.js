@@ -4,7 +4,7 @@ const rows = document.querySelectorAll(".row"); //gets an array of all row divs
 let playerId;
 const playerName = document.querySelector("#user");
 const timer=document.querySelector("#timer");
-timer.innerHTML="00:00";
+timer.innerHTML="";
 let minutes=0;
 let seconds=0;
 let globalTime=0;
@@ -120,7 +120,7 @@ function colorCells() {
         for (let j = 0; j < innerBoard[i].length; j++) {
             if (innerBoard[i][j] == 1) {
                 rows[i].childNodes[j].style.backgroundColor = 'white';
-            } else if (innerBoard[i][j] == 2) {
+            } else if (innerBoard[i][j] == 2 || innerBoard[i][j] == 3) {
                 rows[i].childNodes[j].style.backgroundColor = 'yellow';
             } else {
                 rows[i].childNodes[j].style.backgroundColor = 'black';
@@ -143,7 +143,7 @@ function appendTime(){
     }
 
     if(seconds<10){
-        secondString="0"+ minuteString;
+        secondString="0"+ secondString;
     }
 
     timer.innerHTML=minuteString+":"+secondString;

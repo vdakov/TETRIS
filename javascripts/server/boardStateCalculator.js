@@ -22,7 +22,7 @@ class Board {
     checkForCollision() {
         for (let i = this.board.length - 1; i > 0; i--) {
             for (let j = 0; j < this.board[i].length; j++) {
-                if (this.board[i][j] == 1 && this.board[i - 1][j] == 2) {
+                if (this.board[i][j] == 1 && this.board[i - 1][j] >= 2) {
                     return i;
                 }
             }
@@ -40,7 +40,7 @@ class Board {
 
         for (let i = this.board.length - 1; i > 0; i--) {
             for (let j = 0; j < this.board[i].length; j++) {
-                if (j == this.board[i].length - 1 && this.board[i][j] == 2 || this.board[i][j] == 2 && this.board[i][j + 1] == 1) {
+                if (j == this.board[i].length - 1 && this.board[i][j] >= 2 || this.board[i][j] >= 2 && this.board[i][j + 1] == 1) {
                     return false;
                 }
             }
@@ -59,12 +59,12 @@ class Board {
 
         for (let i = this.board.length - 1; i > 0; i--) {
             for (let j = 1; j < this.board[i].length; j++) {
-                if (this.board[i][j] == 2 && this.board[i][j - 1] == 1) {
+                if (this.board[i][j] >= 2 && this.board[i][j - 1] == 1) {
                     return false;
                 }
             }
 
-            if (this.board[i][0] == 2) {
+            if (this.board[i][0] >= 2 ) {
                 return false;
             }
         }
@@ -146,8 +146,8 @@ class Board {
         } else {
             for (let i = this.board.length - 1; i > 0; i--) {
                 for (let j = 0; j < this.board[i].length; j++) {
-                    if (this.board[i][j] == 0 && this.board[i - 1][j] == 2) {
-                        this.board[i][j] = 2;
+                    if (this.board[i][j] == 0 && this.board[i - 1][j] >= 2) {
+                        this.board[i][j] = this.board[i - 1][j];
                         this.board[i - 1][j] = 0;
                     }
                 }
@@ -165,7 +165,7 @@ class Board {
         if (rowIndex < 3) {
             for (let i = rowIndex; i >= 0; i--) {
                 for (let j = 0; j < this.board[i].length; j++) {
-                    if (this.board[i][j] == 2) {
+                    if (this.board[i][j] >= 2) {
                         this.board[i][j] = 1;
                     }
                 }
@@ -177,7 +177,7 @@ class Board {
             }
             for (let i = limit; i > rowIndex - 4; i--) {
                 for (let j = 0; j < this.board[i].length; j++) {
-                    if (this.board[i][j] == 2) {
+                    if (this.board[i][j] >= 2) {
                         this.board[i][j] = 1;
                     }
                 }
@@ -191,9 +191,10 @@ class Board {
         if (this.checkCanMoveLeft()) {
             for (let i = this.board.length - 1; i > 0; i--) {
                 for (let j = 0; j < this.board[i].length; j++) {
-                    if (this.board[i][j] == 2) {
+                    if (this.board[i][j] >= 2) {
+                        this.board[i][j - 1] = this.board[i][j];
                         this.board[i][j] = 0;
-                        this.board[i][j - 1] = 2;
+
                     }
                 }
             }
@@ -205,9 +206,10 @@ class Board {
         if (this.checkCanMoveRight()) {
             for (let i = this.board.length - 1; i > 0; i--) {
                 for (let j = this.board[i].length - 1; j >= 0; j--) {
-                    if (this.board[i][j] == 2) {
+                    if (this.board[i][j] >= 2) {
+                        this.board[i][j + 1] =  this.board[i][j];
                         this.board[i][j] = 0;
-                        this.board[i][j + 1] = 2;
+
                     }
                 }
             }
