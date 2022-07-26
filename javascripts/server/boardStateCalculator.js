@@ -64,7 +64,7 @@ class Board {
                 }
             }
 
-            if (this.board[i][0] >= 2 ) {
+            if (this.board[i][0] >= 2) {
                 return false;
             }
         }
@@ -85,29 +85,29 @@ class Board {
         }
     }
 
-    checkForCompleteRow(){
-        let arr= [];
-        let completeRow=true;
+    checkForCompleteRow() {
+        let arr = [];
+        let completeRow = true;
 
 
-        for(let i=0;i<this.board.length-1;i++){
-            for(let j=0;j<this.board[i].length;j++){
-                if(this.board[i][j]!=1){
-                    completeRow=false;
+        for (let i = 0; i < this.board.length - 1; i++) {
+            for (let j = 0; j < this.board[i].length; j++) {
+                if (this.board[i][j] != 1) {
+                    completeRow = false;
                 }
             }
-            if(completeRow){
+            if (completeRow) {
                 arr.push(i);
             }
-            completeRow=true;
+            completeRow = true;
         }
 
-        let b= this.board;
+        let b = this.board;
 
-        arr.forEach(function(i){
-            for(let j=i;j>1;j--){
-                for(let k=0;k<b.length;k++){
-                    b[j][k]=b[j-1][k];
+        arr.forEach(function (i) {
+            for (let j = i; j > 1; j--) {
+                for (let k = 0; k < b.length; k++) {
+                    b[j][k] = b[j - 1][k];
                 }
             }
         });
@@ -121,11 +121,11 @@ class Board {
      */
     nextBoardState() {
         if (this.pieceHasFallen) {
-            this.checkForCompleteRow();
             this.appendNewPieceToBoard(pieceGenerator());
             this.pieceHasFallen = false;
         }
         this.oneGravityTick();
+        this.checkForCompleteRow();
         return this.board;
     }
 
@@ -140,7 +140,7 @@ class Board {
         let k = this.checkForCollision();
 
         if (k != -1) {
-            this.convert2sTo1s(k);
+            this.convertTo1s(k);
             this.pieceHasFallen = true;
 
         } else {
@@ -160,7 +160,7 @@ class Board {
     /*
         Converts all 2s to 1s at the index specified with a couple of extra rows added to adjust for pieces that may collide in different places
      */
-    convert2sTo1s(rowIndex) {
+    convertTo1s(rowIndex) {
 
         if (rowIndex < 3) {
             for (let i = rowIndex; i >= 0; i--) {
@@ -207,13 +207,76 @@ class Board {
             for (let i = this.board.length - 1; i > 0; i--) {
                 for (let j = this.board[i].length - 1; j >= 0; j--) {
                     if (this.board[i][j] >= 2) {
-                        this.board[i][j + 1] =  this.board[i][j];
+                        this.board[i][j + 1] = this.board[i][j];
                         this.board[i][j] = 0;
 
                     }
                 }
             }
         }
+    }
+
+    rotate() {
+
+        let indexX = -1;
+        let indexY = -1;
+
+        for (let i = this.board.length - 1; i > 0; i--) {
+            for (let j = this.board[i].length - 1; j >= 0; j--) {
+                if (this.board[i][j] == 3) {
+                    indexY = i;
+                    indexX = j;
+                    break;
+                }
+            }
+
+            if (indexX != -1) {
+                break;
+            }
+        }
+
+        let rotX=[];
+        let rotY=[];
+
+
+        for (let i = indexY - 3; i < indexY + 4; i++) {
+            for (let j = 0; j < this.board[i].length; j++) {
+                if (this.board[i][j] == 2) {
+                    // let x2 = i + indexX - indexY;
+                    // let y2 = j + indexY - indexX;
+
+                    let x2 = indexX + indexY-i;
+                    let y2 = indexY- indexX + j;
+
+                    rotX.push(x2);
+                    rotY.push(y2);
+
+                    this.board[i][j] = 0;
+
+                }
+            }
+
+        }
+
+        // for (let i = indexY - 3; i < indexY + 4; i++) {
+        //     for (let j = 0; j < this.board[i].length; j++) {
+        //         if (this.board[i][j] == 4) {
+        //             this.board[i][j] = 2;
+        //         }
+        //     }
+        // }
+        let n=rotX.length;
+        for(let i=n; i>0;i--){
+            this.board[rotY.pop()][rotX.pop()]=2;
+        }
+
+
+    }
+
+    down() {
+       this.oneGravityTick();
+
+
     }
 }
 

@@ -1,34 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<link rel="stylesheet" href="/splash/splashScreen.css"/>
-    <title>Title</title>
+	<link rel="stylesheet" href="/stylesheets/splashScreen.css"/>
+	<title>Title</title>
 </head>
 <body>
-    <main id="main">
 
-        <h1> TETRISSIMO </h1>
-	    <br>
-
-        <form id="userForm">
-            <label>  Enter username:
-                <input id="userField" type="text"/>
-            </label>
-            
-        </form>
-	    <br>
+<div id="title">
+	<h1> TETRISSIMO </h1>
+</div>
+<main id="main">
 	
-	    <button type='button' onclick="tryToPlayGame()"> SINGLEPLAYER </button>
-	    <button type='button'> MULTIPLAYER </button>
-	    <button type='button'> LEADERBOARD </button>
-	    <button type='button'> RULES </button>
-	    
+	<br>
+	
+	<form id="userForm">
+		<label> Enter username:
+			<input id="userField" type="text"/>
+		</label>
+	
+	</form>
+	<br>
+	<div id="singleplayer">
+		<button type='button' onclick="tryToPlayGame()"> SINGLEPLAYER</button>
+		<button type='button'> MULTIPLAYER</button>
+		<button type='button'> LEADERBOARD</button>
+		<button type='button'> RULES</button>
+	</div>
+	
+	
+	
 
-    </main>
+
+</main>
 
 
 </body>
 
-    <script src="/splash/splashJS.js"></script>
+<script src="/splash/splashJS.js"></script>
 </html>

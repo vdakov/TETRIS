@@ -79,6 +79,28 @@ router.get("/:playerId/left" , (req,res) => {
     res.send(gameMap.get(currentPlayerId));
 } );
 
+router.get("/:playerId/rotate" , (req,res) => {
+
+    let currentPlayerId= parseInt(req.params.playerId);
+    if(gameMap.get(currentPlayerId)==null){
+        res.redirect("../splash");
+    }
+
+    gameMap.get(currentPlayerId).rotate();
+    res.send(gameMap.get(currentPlayerId));
+} );
+
+
+router.get("/:playerId/down" , (req,res) => {
+
+    let currentPlayerId= parseInt(req.params.playerId);
+    if(gameMap.get(currentPlayerId)==null){
+        res.redirect("../splash");
+    }
+
+    gameMap.get(currentPlayerId).down();
+    res.send(gameMap.get(currentPlayerId));
+} );
 
 module.exports= router;
 

@@ -1,5 +1,20 @@
-#main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
+body{
+    background-color: #ff6b68;
+}
+
+
+#title{
+    font-family: 'Press Start 2P', "consolas", cursive;
+    display:block;
+    text-align:center;
+}
+
+button{
+    display:block;
+    font-family: 'Press Start 2P', "consolas", cursive;
+    margin-top: 20px;
+
 }

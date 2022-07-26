@@ -86,18 +86,16 @@ async function controls(e) {
 
     if (e.keyCode === 39) {
         requestURL = requestURL + "/right";
-
-
     } //right
 
     if (e.keyCode === 38) {
-
+        requestURL = requestURL + "/rotate";
     }
     //up(rotate)
 
-    if (e.keyCode === 32) {
-
-    }//space
+    if (e.keyCode === 40) {
+        requestURL = requestURL + "/down";
+    }//down
 
     let request = new Request(requestURL);
     let response = await fetch(request);
@@ -120,7 +118,7 @@ function colorCells() {
         for (let j = 0; j < innerBoard[i].length; j++) {
             if (innerBoard[i][j] == 1) {
                 rows[i].childNodes[j].style.backgroundColor = 'white';
-            } else if (innerBoard[i][j] == 2 || innerBoard[i][j] == 3) {
+            } else if (innerBoard[i][j] >=2) {
                 rows[i].childNodes[j].style.backgroundColor = 'yellow';
             } else {
                 rows[i].childNodes[j].style.backgroundColor = 'black';
