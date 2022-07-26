@@ -102,5 +102,16 @@ router.get("/:playerId/down" , (req,res) => {
     res.send(gameMap.get(currentPlayerId));
 } );
 
+router.get("/:playerId/space" , (req,res) => {
+
+    let currentPlayerId= parseInt(req.params.playerId);
+    if(gameMap.get(currentPlayerId)==null){
+        res.redirect("../splash");
+    }
+
+    gameMap.get(currentPlayerId).space();
+    res.send(gameMap.get(currentPlayerId));
+} );
+
 module.exports= router;
 

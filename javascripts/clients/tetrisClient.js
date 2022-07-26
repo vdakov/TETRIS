@@ -97,6 +97,10 @@ async function controls(e) {
         requestURL = requestURL + "/down";
     }//down
 
+    if(e.keyCode === 32){
+        requestURL = requestURL + "/space";
+    }
+
     let request = new Request(requestURL);
     let response = await fetch(request);
     let newBoard = await response.json();

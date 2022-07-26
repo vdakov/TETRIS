@@ -258,13 +258,6 @@ class Board {
 
         }
 
-        // for (let i = indexY - 3; i < indexY + 4; i++) {
-        //     for (let j = 0; j < this.board[i].length; j++) {
-        //         if (this.board[i][j] == 4) {
-        //             this.board[i][j] = 2;
-        //         }
-        //     }
-        // }
         let n=rotX.length;
         for(let i=n; i>0;i--){
             this.board[rotY.pop()][rotX.pop()]=2;
@@ -275,11 +268,14 @@ class Board {
 
     down() {
        this.oneGravityTick();
+    }
 
-
+    space(){
+        while(!this.pieceHasFallen){
+            this.oneGravityTick();
+        }
     }
 }
-
 /*
     Function that sends a new board object for each player that is used to maintain a session
 
