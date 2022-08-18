@@ -85,6 +85,9 @@ class Board {
         }
     }
 
+    /*
+        Checks
+     */
     checkForCompleteRow() {
         let arr = [];
         let completeRow = true;
@@ -105,11 +108,13 @@ class Board {
         let b = this.board;
 
         arr.forEach(function (i) {
-            for (let j = i; j > 1; j--) {
-                for (let k = 0; k < b.length; k++) {
+            for(let j=i; j>1; j--){
+                for (let k = 0; k < b[i].length; k++) {
                     b[j][k] = b[j - 1][k];
                 }
             }
+
+
         });
     };
 
@@ -120,12 +125,12 @@ class Board {
         return: the new state of the board, which is sent to the client in the gameRouter upon their request
      */
     nextBoardState() {
+        this.checkForCompleteRow();
         if (this.pieceHasFallen) {
             this.appendNewPieceToBoard(pieceGenerator());
             this.pieceHasFallen = false;
         }
         this.oneGravityTick();
-        this.checkForCompleteRow();
         return this.board;
     }
 
@@ -274,6 +279,10 @@ class Board {
         while(!this.pieceHasFallen){
             this.oneGravityTick();
         }
+    }
+
+    checkFallenPiece(){
+        return this.pieceHasFallen;
     }
 }
 /*

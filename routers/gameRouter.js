@@ -113,5 +113,11 @@ router.get("/:playerId/space" , (req,res) => {
     res.send(gameMap.get(currentPlayerId));
 } );
 
+router.get("/:playerId/fallenPiece" , (req,res) => {
+
+    let currentPlayerId= parseInt(req.params.playerId);
+    res.send(gameMap.get(currentPlayerId).checkFallenPiece());
+} );
+
 module.exports= router;
 

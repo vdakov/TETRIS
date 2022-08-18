@@ -8,6 +8,8 @@ timer.innerHTML="";
 let minutes=0;
 let seconds=0;
 let globalTime=0;
+colors=['yellow','blue','red','green','purple','cyan','lime','magenta','orange'];
+let currentColor=colors[Math.floor(Math.random()*colors.length)];
 
 
 let innerBoard = new Array(rows.length); //creates the board of 1s and 0s on which the actual computations are done
@@ -117,15 +119,21 @@ async function controls(e) {
 
 document.addEventListener('keyup', controls);
 
+
 function colorCells() {
-    for (let i = 0; i < innerBoard.length; i++) {
+
+    for (let i = 0; i < innerBoard.length-1; i++) {
         for (let j = 0; j < innerBoard[i].length; j++) {
             if (innerBoard[i][j] == 1) {
                 rows[i].childNodes[j].style.backgroundColor = 'white';
-            } else if (innerBoard[i][j] >=2) {
-                rows[i].childNodes[j].style.backgroundColor = 'yellow';
-            } else {
+                rows[i].childNodes[j].style.border= '0.0001px solid gray;'
+            } else
+                if (innerBoard[i][j] >=2) {
+                rows[i].childNodes[j].style.backgroundColor = currentColor;
+                rows[i].childNodes[j].style.border= '0.0001px solid gray;'
+            } else if (innerBoard[i][j] ==0) {
                 rows[i].childNodes[j].style.backgroundColor = 'black';
+                rows[i].childNodes[j].style.border= '0.0001px solid gray;'
             }
         }
     }
@@ -152,8 +160,21 @@ function appendTime(){
 
 }
 
+async function fallenPiece(){
+    const requestURL = "http://localhost:8080/game/" + playerId + "/fallenPiece";
+    const request = new Request(requestURL);
+    const response = await fetch(request);
+
+    let fallenPiece = await response.json();
+
+    if(fallenPiece){
+        currentColor=colors[Math.floor(Math.random()*colors.length)];
+    }
+}
+
 
 setInterval(colorCells, 100);
 setInterval(requestNewBoard, 500);
+setInterval(fallenPiece, 500);
 setInterval(appendTime,1000);
 
